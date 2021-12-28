@@ -1,9 +1,9 @@
 import React from "react";
 import { useContext } from "react";
 import { Context } from "../index";
-import { NavLink } from "react-router-dom";
-import { SHOP_ROUTE } from "../utils/consts";
-import {observer} from "mobx-react-lite";
+import { NavLink, useHistory } from "react-router-dom";
+import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from "../utils/consts";
+import { observer } from "mobx-react-lite";
 
 // React Bootstrap
 import Navbar from "react-bootstrap/Navbar";
@@ -13,6 +13,7 @@ import Button from "react-bootstrap/Button";
 
 const NavBar = observer(() => {
   const { user } = useContext(Context);
+  const history = useHistory();
 
   return (
     <Navbar bg="dark" variant="dark">
@@ -22,8 +23,19 @@ const NavBar = observer(() => {
         </NavLink>
         {user.isAuth ? (
           <Nav className="ml-auto" style={{ color: "white" }}>
-            <Button variant={"outline-light"} style={{marginRight: 10}}>Админ-панель</Button>
-            <Button variant={"outline-light"}>Выйти</Button>
+            <Button
+              variant={"outline-light"}
+              style={{ marginRight: 10 }}
+              onClick={() => history.push(ADMIN_ROUTE)}
+            >
+              Админ-панель
+            </Button>
+            <Button
+              variant={"outline-light"}
+              onClick={() => history.push(LOGIN_ROUTE)}
+            >
+              Выйти
+            </Button>
           </Nav>
         ) : (
           <Nav className="ml-auto" style={{ color: "white" }}>
